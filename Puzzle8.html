@@ -7,8 +7,6 @@
 
                 h1 = 0;
                 h2 = 0;
-                heu = 0;
-                pos = 0;
 
                 for (var i = 0; i <= 8; i++) {
 
@@ -17,11 +15,13 @@
 
                         for (var j = 0; j <= 8; j++) {
 
-                            if (filho[i] == objetivo[j]) {
+                            if ((filho[i] == objetivo[j]) && (objetivo[j] != 0)) {
 
                                 if (i == 1) {
                                     
-                                    if (j == 2) {
+                                    if (j == 0) {
+                                        pos = 1;
+                                    } else if (j == 2) {
                                         pos = 1;
                                     } else if (j == 3) {
                                         pos = 2;
@@ -33,13 +33,15 @@
                                         pos = 3;
                                     } else if (j == 7) {
                                         pos = 2;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 3;
                                     }
 
                                 } else if (i == 2) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 2;
+                                    } else if (j == 1) {
                                         pos = 1;
                                     } else if (j == 3) {
                                         pos = 3;
@@ -51,13 +53,15 @@
                                         pos = 4;
                                     } else if (j == 7) {
                                         pos = 3;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 2;
                                     }
 
                                 } else if (i == 3) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 1;
+                                    } else if (j == 1) {
                                         pos = 2;
                                     } else if (j == 2) {
                                         pos = 3;
@@ -69,13 +73,15 @@
                                         pos = 1;
                                     } else if (j == 7) {
                                         pos = 2;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 3;
                                     }
 
                                 } else if (i == 4) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 2;
+                                    } else if (j == 1) {
                                         pos = 1;
                                     } else if (j == 2) {
                                         pos = 2;
@@ -87,13 +93,15 @@
                                         pos = 2;
                                     } else if (j == 7) {
                                         pos = 1;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 2;
                                     }
 
                                 } else if (i == 5) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 3;
+                                    } else if (j == 1) {
                                         pos = 2;
                                     } else if (j == 2) {
                                         pos = 1;
@@ -105,13 +113,15 @@
                                         pos = 3;
                                     } else if (j == 7) {
                                         pos = 2;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 1;
                                     }
 
                                 } else if (i == 6) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 2;
+                                    } else if (j == 1) {
                                         pos = 3;
                                     } else if (j == 2) {
                                         pos = 4;
@@ -123,13 +133,15 @@
                                         pos = 3;
                                     } else if (j == 7) {
                                         pos = 1;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 2;
                                     }
 
                                 } else if (i == 7) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 3;
+                                    } else if (j == 1) {
                                         pos = 2;
                                     } else if (j == 2) {
                                         pos = 3;
@@ -141,13 +153,15 @@
                                         pos = 2;
                                     } else if (j == 6) {
                                         pos = 1;
-                                    } else {
+                                    } else if (j == 8) {
                                         pos = 1;
                                     }
 
                                 } else if (i == 8) {
 
-                                    if (j == 1) {
+                                    if (j == 0) {
+                                        pos = 4;
+                                    } else if (j == 1) {
                                         pos = 3;
                                     } else if (j == 2) {
                                         pos = 2;
@@ -159,17 +173,17 @@
                                         pos = 1;
                                     } else if (j == 6) {
                                         pos = 2;
-                                    } else {
+                                    } else if (j == 7) {
                                         pos = 1;
                                     }
 
                                 }
 
+								h2 += pos;
+
                             }
 
                         }
-
-                        h2 += pos;
 
                     }
 
@@ -248,28 +262,9 @@
 
                 aberto[aberto.length] = varchar;
 
-                var auxVarchar = "";
-                var auxInt = 0;
-
                 calculaHeur();
 
-                auxHeu[aberto.length] = heu;
-
-                for (var i = 0; i <= (aberto.length - 1); i++) {
-
-                    if (auxHeu[i] <= auxHeu[i - 1]) {
-
-                        auxVarchar = aberto[i];
-                        aberto[i] = aberto[i - 1];
-                        aberto[i - 1] = auxVarchar;
-
-                        auxInt = auxHeu[i];
-                        auxHeu[i] = auxHeu[i - 1];
-                        auxHeu[i - 1] = auxInt;
-
-                    }
-
-                }
+                heuristica[heuristica.length] = heu;
 
             }
 
@@ -279,7 +274,7 @@
 
             var testado = [];
             var aberto = [];
-            var auxHeu = [];
+            var heuristica = [];
 
             var h1 = 0;
             var h2 = 0;
@@ -292,16 +287,16 @@
             var isTestado = true;
             var isPrimeira = true;
   
-//             atual[0] = 5;
-//             atual[1] = 2;
-//             atual[2] = 7;
-//             atual[3] = 8;
-//             atual[4] = 4;
-//             atual[5] = 0;
-//             atual[6] = 1;
-//             atual[7] = 3;
-//             atual[8] = 6;
-
+            atual[0] = 5;
+            atual[1] = 2;
+            atual[2] = 7;
+            atual[3] = 8;
+            atual[4] = 4;
+            atual[5] = 0;
+            atual[6] = 1;
+            atual[7] = 3;
+            atual[8] = 6;
+/*
             atual[0] = 1;
             atual[1] = 2;
             atual[2] = 4;
@@ -310,8 +305,18 @@
             atual[5] = 3;
             atual[6] = 7;
             atual[7] = 8;
-            atual[8] = 6;
-
+            atual[8] = 6;*/
+/*
+            atual[0] = 1;
+            atual[1] = 2;
+            atual[2] = 6;
+            atual[3] = 4;
+            atual[4] = 5;
+            atual[5] = 3;
+            atual[6] = 7;
+            atual[7] = 8;
+            atual[8] = 0;*/
+/*
             objetivo[0] = 1;
             objetivo[1] = 2;
             objetivo[2] = 3;
@@ -320,17 +325,17 @@
             objetivo[5] = 6;
             objetivo[6] = 7;
             objetivo[7] = 8;
-            objetivo[8] = 0;
+            objetivo[8] = 0;*/
             
-//             objetivo[0] = 1;
-//             objetivo[1] = 2;
-//             objetivo[2] = 3;
-//             objetivo[3] = 8;
-//             objetivo[4] = 0;
-//             objetivo[5] = 4;
-//             objetivo[6] = 7;
-//             objetivo[7] = 6;
-//             objetivo[8] = 5;
+            objetivo[0] = 1;
+            objetivo[1] = 2;
+            objetivo[2] = 3;
+            objetivo[3] = 8;
+            objetivo[4] = 0;
+            objetivo[5] = 4;
+            objetivo[6] = 7;
+            objetivo[7] = 6;
+            objetivo[8] = 5;
 
             while (!concluido) {
 
@@ -350,7 +355,7 @@
 
                     isTestado = false;
 
-                    for (var i = 0; i <= countTestado; i++) {
+                    for (var i = 0; i < countTestado; i++) {
 
                         if ((auxVarchar == testado[i]) && (!isTestado)) {
                             isTestado = true;
@@ -365,7 +370,7 @@
 
                 if (isTestado) {
 
-                    for (var x = 0; x <= countAberto; x++) {
+                    for (var x = 0; x < countAberto - 1; x++) {
                         aberto[x] = aberto[x + 1];
                     }
 
@@ -453,6 +458,25 @@
 
                         }
 
+                        var auxVarchar = "";
+                        var auxInt = 0;
+                        
+                        for (var i = (heuristica.length + 1); i >0 ; i--) {
+                        
+                            if(heuristica[i] > heuristica[i + 1]) {
+
+                                auxVarchar = aberto[i];
+                                aberto[i] = aberto[i + 1];
+                                aberto[i + 1] = auxVarchar;
+
+                                auxInt = heuristica[i];
+                                heuristica[i] = heuristica[i + 1];
+                                heuristica[i + 1] = auxInt;
+
+                            }
+
+                        }
+
                         carregaAtualAberto();
 
                     }
@@ -461,7 +485,7 @@
 
             }
 
-            var msg = "putamerda funcionou";
+            var msg = "putamerda funcionou ";
 
             for (var i = 0; i <= 8; i++) {
                 msg += atual[i];
